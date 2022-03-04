@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  mysqldb:
+    build:
+      context: .
+      dockerfile: config/docker/Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: apitest
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
+    driver: local
