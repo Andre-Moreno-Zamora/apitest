@@ -12,11 +12,3 @@ CREATE TABLE product(
 	CONSTRAINT product_pk PRIMARY KEY (product_id),
 	CONSTRAINT product_fk FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(manufacturer_id)
 );
-
-INSERT INTO manufacturer VALUES(1, 'NVIDIA');
-INSERT INTO manufacturer VALUES(2, 'AMD');
-
-INSERT INTO product VALUES(1, 'NVIDIA GEFORCE RTX 3070', '8 GB', 1);
-INSERT INTO product VALUES(2, 'NVIDIA GEFORCE RTX 3080', '10 GB', 1);
-INSERT INTO product VALUES(3, 'AMD RADEON RX 6600', '8 GB', 2);
-INSERT INTO product VALUES(4, 'AMD RADEON RX 6700 RX', '12 GB', 2);

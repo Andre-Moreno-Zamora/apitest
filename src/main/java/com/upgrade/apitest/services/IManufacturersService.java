@@ -1,9 +1,7 @@
-package com.upgrade.api.services;
+package com.upgrade.apitest.services;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.upgrade.apitest.dto.ManufacturersDTO;
@@ -15,11 +13,11 @@ public interface IManufacturersService {
 	
 	ManufacturersDTO findByManufacturerName(String manufacturerName);
 	
-	ManufacturersDTO findByManufacturerId(int manufacturerId);
+	ManufacturersDTO findByManufacturerId(Long manufacturerId);
 	
 	void save(ManufacturersDTO manufacturer);
 	
 	void saveAll(List<ManufacturersDTO> manufacturers);
 	
-	void deleteById(int manufacturerId);
+	void deleteById(Long manufacturerId);
 }

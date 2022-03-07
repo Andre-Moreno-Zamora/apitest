@@ -1,4 +1,4 @@
-package com.upgrade.api.services;
+package com.upgrade.apitest.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.upgrade.apitest.dto.ManufacturersDTO;
-import com.upgrade.apitest.entities.Manufacturers;
+import com.upgrade.apitest.entities.Manufacturer;
 import com.upgrade.apitest.repositories.ManufacturersRepository;
 import com.upgrade.apitest.utilities.MHelpers;
 
@@ -23,11 +23,11 @@ public class ManufacturersImpl implements IManufacturersService{
 		
 		List<ManufacturersDTO> dto = new ArrayList<>();
 		
-		Iterable<Manufacturers> manufacturers = this.manufacturersRepository.findAll();
+		Iterable<Manufacturer> manufacturers = this.manufacturersRepository.findAll();
 		
-		for(Manufacturers manufacturer : manufacturers) {
+		for(Manufacturer manufacturer : manufacturers) {
 			
-			ManufacturersDTO manufacturersDTO = MHelpers.modelMapper().map(manufacturers, ManufacturersDTO.class);
+			ManufacturersDTO manufacturersDTO = MHelpers.modelMapper().map(manufacturer, ManufacturersDTO.class);
 			
 			dto.add(manufacturersDTO);
 			
@@ -40,7 +40,7 @@ public class ManufacturersImpl implements IManufacturersService{
 	@Override
 	public ManufacturersDTO findByManufacturerName(String manufacturerName) {
 		
-		Optional<Manufacturers> manufacturer = manufacturersRepository.findByManufacturerName(manufacturerName);
+		Optional<Manufacturer> manufacturer = manufacturersRepository.findByManufacturerName(manufacturerName);
 		
 		if( !manufacturer.isPresent() ) {
 			return null;
@@ -51,9 +51,9 @@ public class ManufacturersImpl implements IManufacturersService{
 	}
 
 	@Override
-	public ManufacturersDTO findByManufacturerId(int manufacturerId) {
+	public ManufacturersDTO findByManufacturerId(Long manufacturerId) {
 		
-		Optional<Manufacturers> manufacturer = manufacturersRepository.findById(manufacturerId);
+		Optional<Manufacturer> manufacturer = manufacturersRepository.findById(manufacturerId);
 		
 		if( !manufacturer.isPresent() ) {
 			return null;
@@ -64,7 +64,7 @@ public class ManufacturersImpl implements IManufacturersService{
 	@Override
 	public void save(ManufacturersDTO manufacturer) {
 		
-		Manufacturers manufacturers = MHelpers.modelMapper().map(manufacturer, Manufacturers.class);
+		Manufacturer manufacturers = MHelpers.modelMapper().map(manufacturer, Manufacturer.class);
 		
 		this.manufacturersRepository.save(manufacturers);
 		
@@ -73,11 +73,11 @@ public class ManufacturersImpl implements IManufacturersService{
 	@Override
 	public void saveAll(List<ManufacturersDTO> manufacturers) {
 		
-		List<Manufacturers> m = new ArrayList<>();
+		List<Manufacturer> m = new ArrayList<>();
 		
 		for(ManufacturersDTO manufacturer : manufacturers) {
 			
-			Manufacturers ms = MHelpers.modelMapper().map(manufacturer, Manufacturers.class);
+			Manufacturer ms = MHelpers.modelMapper().map(manufacturer, Manufacturer.class);
 			
 			m.add(ms);
 			
@@ -88,15 +88,9 @@ public class ManufacturersImpl implements IManufacturersService{
 	}
 
 	@Override
-	public void deleteById(int manufacturerId) {
+	public void deleteById(Long manufacturerId) {
 		
 		this.manufacturersRepository.deleteById(manufacturerId);
-		
-	}
-	
-	private ManufacturersDTO convertToManufacturersDTO(final Manufacturers manufacturers) {
-		
-		return MHelpers.modelMapper().map(manufacturers, ManufacturersDTO.class);
 		
 	}
 
