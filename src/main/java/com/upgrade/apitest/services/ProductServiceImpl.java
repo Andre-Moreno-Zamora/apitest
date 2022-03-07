@@ -1,5 +1,6 @@
 package com.upgrade.apitest.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,6 +26,26 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public List<Product> getProducts(){
 		return productRepository.findAll();
+	}
+	
+	@Override
+	public List<Product> getProductClone(Long productId){
+		boolean exists = productRepository.existsById(productId);
+		
+		if(!exists) {
+			throw new IllegalStateException("product with id " + productId + " does not exists");
+		}
+		
+		Optional<Product> productOptional = productRepository
+				.findById(productId);
+		
+		List<Product> clonedProductList = new ArrayList<Product>();
+		Product productToClone = productOptional.get();
+		Product productClone = (Product) productToClone.cloneProduct();
+		
+		clonedProductList.add(productClone);
+		
+		return clonedProductList;
 	}
 	
 	@Override

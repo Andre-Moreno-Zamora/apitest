@@ -31,6 +31,12 @@ public class ProductController {
 	public List<Product> getProducts(){
 		return productService.getProducts();
 	}
+	
+	@GetMapping(path = "clone/{productId}")
+	public List<Product> getProductClone(
+			@PathVariable("productId") Long productId){
+		return productService.getProductClone(productId);
+	}
 
 	@PostMapping
 	public void registerNewProduct(@RequestBody Product product) {

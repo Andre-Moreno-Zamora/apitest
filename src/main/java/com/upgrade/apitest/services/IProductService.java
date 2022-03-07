@@ -16,5 +16,7 @@ public interface IProductService {
 	void deleteProduct(Long productId);
 	
 	void updateProduct(Long productId, String name);
+
+	List<Product> getProductClone(Long productId);
 	
 }
