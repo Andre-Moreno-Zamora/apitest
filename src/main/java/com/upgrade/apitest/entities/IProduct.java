@@ -1,5 +1,5 @@
 package com.upgrade.apitest.entities;
 
-public interface IProduct {
-
+public interface IProduct extends Cloneable {
+	IProduct cloneProduct();
 }

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements IProduct{
 
 	@Id
 	@Column(name = "product_id")
@@ -44,6 +44,20 @@ public class Product {
 		this.name = name;
 		this.memory = memory;
 		this.manufacturerId = manufacturerId;
+	}
+	
+	// Prototype implementation
+	@Override
+	public IProduct cloneProduct() {
+
+		Product product = null;
+		try {
+			product = (Product) clone();
+		} catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		
+		return product;
 	}
 
 	public Long getId() {
@@ -83,7 +97,5 @@ public class Product {
 		return "Product [id=" + id + ", name=" + name + ", memory=" + memory + ", manufacturerId=" + manufacturerId
 				+ "]";
 	}
-	
-	
 	
 }
