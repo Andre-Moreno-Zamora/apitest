@@ -1,29 +1,37 @@
 package com.upgrade.apitest.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name="manufacturer")
-public class Manufacturer implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Manufacturer {
+	
+	private static Manufacturer instance;
 	
 	@Id
 	@Column(name="manufacturer_id")
+	@GeneratedValue(
+			strategy = GenerationType.IDENTITY
+	)
 	private Long id;
 	@Column(name="manufacturer_name")
 	private String manufacturerName;
 	
-	public Manufacturer() {
+	private Manufacturer() {
 		
+	}
+	
+	// Singleton implementation
+	public static Manufacturer getInstance() {
+		if(instance == null) {
+			instance = new Manufacturer();
+		}
+		return instance;
 	}
 	
 	public Manufacturer(String manufacturerName) {
@@ -46,6 +54,11 @@ public class Manufacturer implements Serializable {
 	}
 	public void setManufacturerName(String manufacturerName) {
 		this.manufacturerName = manufacturerName;
+	}
+
+	@Override
+	public String toString() {
+		return "Manufacturer [id=" + id + ", manufacturerName=" + manufacturerName + "]";
 	}
 	
 }

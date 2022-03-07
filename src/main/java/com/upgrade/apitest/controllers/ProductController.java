@@ -14,40 +14,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.upgrade.apitest.entities.Product;
-import com.upgrade.apitest.services.ProductServiceImpl;
+import com.upgrade.apitest.services.IProductService;
 
 @RestController
 @RequestMapping(path = "api/v1/product")
 public class ProductController {
 	
-	private final ProductServiceImpl productServiceImpl;
+	private final IProductService productService;
 	
 	@Autowired
-	public ProductController(ProductServiceImpl productServiceImpl) {
-		this.productServiceImpl = productServiceImpl;
+	public ProductController(IProductService productService) {
+		this.productService = productService;
 	}
 
 	@GetMapping
 	public List<Product> getProducts(){
-		return productServiceImpl.getProducts();
+		return productService.getProducts();
 	}
 
 	@PostMapping
 	public void registerNewProduct(@RequestBody Product product) {
-		productServiceImpl.addNewProduct(product);
+		productService.addNewProduct(product);
 	}
 	
 	@DeleteMapping(path = "{productId}")
 	public void deleteProduct(
 			@PathVariable("productId") Long productId) {
-		productServiceImpl.deleteProduct(productId);
+		productService.deleteProduct(productId);
 	}
 	
 	@PutMapping(path = "{productId}")
 	public void updateProduct(
 			@PathVariable("productId") Long productId,
 			@RequestParam(required = false) String name) {
-		productServiceImpl.updateProduct(productId, name);
+		productService.updateProduct(productId, name);
 	}
 	
 }

@@ -13,7 +13,7 @@ import com.upgrade.apitest.entities.Product;
 import com.upgrade.apitest.repositories.ProductRepository;
 
 @Service
-public class ProductServiceImpl {
+public class ProductServiceImpl implements IProductService {
 	
 	private final ProductRepository productRepository;
 	
@@ -22,10 +22,12 @@ public class ProductServiceImpl {
 		this.productRepository = productRepository;
 	}
 
+	@Override
 	public List<Product> getProducts(){
 		return productRepository.findAll();
 	}
 	
+	@Override
 	public void addNewProduct(Product product) {
 		Optional<Product> productOptional = productRepository
 				.findProductByName(product.getName());
@@ -35,6 +37,7 @@ public class ProductServiceImpl {
 		productRepository.save(product);
 	}
 	
+	@Override
 	public void deleteProduct(Long productId) {
 		boolean exists = productRepository.existsById(productId);
 		if(!exists) {
@@ -43,6 +46,7 @@ public class ProductServiceImpl {
 		productRepository.deleteById(productId);
 	}
 	
+	@Override
 	@Transactional
 	public void updateProduct(Long productId, String name) {
 		Product product = productRepository.findById(productId)
